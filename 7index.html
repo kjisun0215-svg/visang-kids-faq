@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FAQ</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        padding: 40px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    /* Search */
+    #searchBox {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+    /* Category Tabs */
+    .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+    }
+
+    .tab {
+        padding: 10px 18px;
+        background: #eaeaea;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .tab.active {
+        background: #333;
+        color: white;
+        font-weight: 600;
+    }
+
+    /* FAQ Items */
+    .faq-item {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .faq-question {
+        font-size: 17px;
+        font-weight: 600;
+    }
+
+    .faq-answer {
+        display: none;
+        margin-top: 12px;
+        font-size: 15px;
+        color: #444;
+        line-height: 1.5;
+    }
+
+    .faq-item.open .faq-answer {
+        display: block;
+    }
+</style>
+</head>
+<body>
+
+<h1>FAQ</h1>
+
+<input id="searchBox" type="text" placeholder="검색어를 입력하세요…" />
+
+<div class="tabs" id="categoryTabs"></div>
+
+<div id="faqContainer"></div>
+
+<script>
+const API_URL = "https://opensheet.vercel.app/1216cKMHKiEbODsAzJeHoJ7Ermrea7_33wNbSEZnMQ1I/시트1";
+
+let allFAQ = [];
+let currentCategory = "전체";
+
+async function loadFAQ() {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    allFAQ = data;
+    renderCategories(data);
+    renderFAQ(data);
+}
+
+// --------- 카테고리 렌더링 ----------
+function renderCategories(data) {
+    const tabBox = document.getElementById("categoryTabs");
+    tabBox.innerHTML = "";
+
+    const categories = ["전체", ...new Set(data.map(row => row.category))];
+
+    categories.forEach(cat => {
+        const tab = document.createElement("div");
+        tab.className = "tab" + (cat === "전체" ? " active" : "");
+        tab.innerText = cat;
+
+        tab.onclick = () => {
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            currentCategory = cat;
+            filterFAQ();
+        };
+
+        tabBox.appendChild(tab);
+    });
+}
+
+// --------- FAQ 렌더링 ----------
+function renderFAQ(list) {
+    const container = document.getElementById("faqContainer");
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+        container.innerHTML = "<p>검색 결과가 없습니다.</p>";
+        return;
+    }
+
+    list.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "faq-item";
+        div.innerHTML = `
+            <div class="faq-question">${item.question}</div>
+            <div class="faq-answer">${item.answer}</div>
+        `;
+        div.onclick = () => div.classList.toggle("open");
+        container.appendChild(div);
+    });
+}
+
+// --------- 검색 + 카테고리 필터 ----------
+function filterFAQ() {
+    const keyword = document.getElementById("searchBox").value.trim().toLowerCase();
+
+    let filtered = allFAQ.filter(row =>
+        (currentCategory === "전체" || row.category === currentCategory) &&
+        (row.question.toLowerCase().includes(keyword) ||
+         row.answer.toLowerCase().includes(keyword))
+    );
+
+    renderFAQ(filtered);
+}
+
+document.getElementById("searchBox").addEventListener("input", filterFAQ);
+
+loadFAQ();
+</script>
+
+</body>
+</html>
