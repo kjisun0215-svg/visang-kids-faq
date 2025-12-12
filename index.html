@@ -1,181 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FAQ — 비상교육 스타일</title>
-  <style>
-    :root{
-      --maxw:1100px;
-      --accent:#0066cc;
-      --muted:#6b7280;
-      --bg:#f7f8fb;
-      --card:#ffffff;
-      --radius:12px;
-      --gap:18px;
-      font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:#0b1220;line-height:1.55}
-    .wrap{max-width:var(--maxw);margin:36px auto;padding:24px}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ</title>
 
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#48a7ff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-    h1{font-size:20px;margin:0}
-    p.lead{color:var(--muted);margin:4px 0 0;font-size:14px}
-
-    .card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:0 6px 18px rgba(8,25,40,0.06)}
-
-    .search-row{display:flex;gap:12px;align-items:center}
-    .search{flex:1;display:flex;gap:8px;align-items:center}
-    .search input{flex:1;padding:12px 14px;border-radius:10px;border:1px solid #e6e9ef;background:#fff;font-size:15px}
-    .search button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
-
-    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-    .tab{padding:8px 12px;border-radius:999px;background:#f1f4f8;color:#263141;font-size:13px;cursor:pointer;border:1px solid transparent}
-    .tab.active{background:var(--accent);color:#fff}
-
-    .faq-list{margin-top:18px;display:grid;gap:12px}
-    .faq{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));padding:14px;border-radius:10px;border:1px solid #eef2f6}
-    .faq summary{font-weight:700;list-style:none;cursor:pointer;font-size:15px}
-    details[open] summary{color:var(--accent)}
-    .faq p{margin:8px 0 0;color:var(--muted)}
-
-    .no-result{text-align:center;padding:36px 12px;color:var(--muted)}
-
-    .help-row{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
-    .help-left{color:var(--muted)}
-    .call-btn{background:#fff;border:1px solid #e6e9ef;padding:10px 14px;border-radius:10px;font-weight:700}
-
-    footer{margin-top:22px;padding:18px;background:transparent;color:var(--muted);font-size:13px}
-
-    @media (max-width:720px){
-      .wrap{padding:16px;margin:10px}
-      header{flex-direction:column;align-items:flex-start}
-      .search-row{flex-direction:column;align-items:stretch}
-      .help-row{flex-direction:column;gap:8px;align-items:flex-start}
-    }
-  </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f6f7fb;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .faq-category {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 40px 0 15px;
+            padding-bottom: 5px;
+            border-bottom: 3px solid #4a55f2;
+        }
+        .faq-item {
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 16px 20px;
+            cursor: pointer;
+            background: #eef0fa;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 16px 20px;
+            display: none;
+            background: white;
+            line-height: 1.6;
+        }
+        .arrow {
+            transition: 0.3s;
+        }
+        .open .arrow {
+            transform: rotate(90deg);
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">비상</div>
-        <div>
-          <h1>비상교육 유아 프로그램 FAQ</h1>
-          <p class="lead">자주 묻는 질문을 검색하거나 카테고리로 분류해 빠르게 찾아보세요.</p>
-        </div>
-      </div>
-      <div>
-        <button class="call-btn" onclick="location.href='tel:16444115'">고객센터 연결하기 1644-4115</button>
-      </div>
-    </header>
 
-    <section class="card">
-      <div class="search-row">
-        <div class="search">
-          <input id="q" placeholder="검색어를 입력하세요 (예: 로그인, 결제, 수료증)" oninput="updateFilter()" />
-          <button onclick="clearSearch()">초기화</button>
-        </div>
-      </div>
+    <h1>FAQ</h1>
 
-      <div class="tabs" id="tabs"></div>
+    <div id="faq-container">불러오는 중...</div>
 
-      <div class="faq-list" id="faqList"></div>
+    <script>
+        const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRUcyvIj3pi9Sn5nuWNhbg6DIV9OHmy_GFq4s7kuGAUWgPAgryCvGm9y-JayZJ3poIsClH5wLPmhFba/gviz/tq?tqx=out:json&sheet=Sheet1";
 
-      <div id="noResult" class="no-result" style="display:none">검색 결과가 없습니다.<br/>다른 키워드로 검색해보세요.</div>
+        fetch(URL)
+            .then(response => response.text())
+            .then(text => {
+                const json = JSON.parse(text.substr(47).slice(0, -2));
+                const rows = json.table.rows;
 
-      <div class="help-row">
-        <div class="help-left">도움말을 통해 문제를 해결하지 못하셨나요?</div>
-        <div><button class="call-btn" onclick="location.href='tel:16444115'">고객센터 연결하기 1644-4115</button></div>
-      </div>
-    </section>
+                let data = {};
 
-    <footer>
-      <div>이용약관 &nbsp;&nbsp; 개인정보처리방침 &nbsp;&nbsp; 문의하기</div>
-      <div style="margin-top:8px;color:var(--muted)">(주)비상교육 주소 : 경기도 과천시 과천대로2길 54, 13층 | TEL : 1644-4115</div>
-    </footer>
-  </div>
+                rows.forEach(r => {
+                    let category = r.c[0]?.v || "";
+                    let question = r.c[1]?.v || "";
+                    let answer = r.c[2]?.v || "";
 
-  <script>
-    // ========== 편집 가능한 데이터: 카테고리와 FAQ 목록 ==========
-    const categories = [
-      '전체 프로그램','온리원키즈포스쿨','누뿔','세힘','하임슐레','꼬모아르떼','윙스','티키토키','챌린지'
-    ];
+                    if (!category || !question) return;
 
-    // FAQ 항목 샘플 — 실제 운영 전에는 여기를 수정하세요.
-    // 각 항목: {id, category, q, a}
-    const faqs = [
-      {id:1, category:'온리원키즈포스쿨', q:'참여 대상은 어떻게 되나요?', a:'영유아 및 보육기관을 대상으로 합니다. 연령별 프로그램은 별도 안내를 확인해주세요.'},
-      {id:2, category:'온리원키즈포스쿨', q:'수업 일정은 어떻게 확인하나요?', a:'회원 페이지 또는 공지사항에서 최신 일정을 확인하실 수 있습니다.'},
-      {id:3, category:'누뿔', q:'콘텐츠는 온라인으로만 제공되나요?', a:'일부 콘텐츠는 오프라인 교구와 함께 제공되며, 상세 내용은 프로그램 페이지를 확인하세요.'},
-      {id:4, category:'세힘', q:'수료증은 발급되나요?', a:'모든 과정을 완료한 기관 및 개인에게 수료증이 발급됩니다.'},
-      {id:5, category:'하임슐레', q:'결제는 어떤 방법을 지원하나요?', a:'신용카드, 무통장입금, 기업결제(전표) 등을 지원합니다. 기관별 청구는 별도 문의 바랍니다.'},
-      {id:6, category:'꼬모아르떼', q:'교사용 자료는 어디서 다운받나요?', a:'교사용 자료는 로그인 후 자료실에서 다운로드 가능합니다.'},
-      {id:7, category:'윙스', q:'수업 연계 교구는 별도 구매인가요?', a:'일부 교구는 별도 구매이며, 패키지로 제공되는 경우도 있습니다.'},
-      {id:8, category:'티키토키', q:'수업 환불 규정이 어떻게 되나요?', a:'수업 시작 전 취소는 전액 환불, 시작 후 환불은 환불정책을 따릅니다.'},
-      {id:9, category:'챌린지', q:'기관 신청은 어떻게 하나요?', a:'기관 담당자가 별도 신청서 양식을 작성하여 담당자 이메일로 접수하시면 됩니다.'},
-      {id:10, category:'온리원키즈포스쿨', q:'로그인이 안돼요. 어떻게 하나요?', a:'브라우저 쿠키를 삭제한 뒤 다시 시도하거나 다른 브라우저에서 로그인해보세요.'},
-      {id:11, category:'전체 프로그램', q:'프로그램 관련 문의는 어디로 하나요?', a:'고객센터 1644-4115 또는 문의하기 페이지를 통해 접수해주세요.'},
-      {id:12, category:'전체 프로그램', q:'이용약관과 개인정보처리방침을 어디서 볼 수 있나요?', a:'페이지 하단의 링크 또는 홈페이지에서 확인하실 수 있습니다.'}
-    ];
+                    if (!data[category]) data[category] = [];
 
-    // ========== 렌더링 로직 ==========
-    const tabsEl = document.getElementById('tabs');
-    const faqListEl = document.getElementById('faqList');
-    const qInput = document.getElementById('q');
-    const noResultEl = document.getElementById('noResult');
+                    data[category].push({ question, answer });
+                });
 
-    let activeCategory = '전체 프로그램';
+                let html = "";
 
-    function makeTabs(){
-      tabsEl.innerHTML = '';
-      categories.forEach(cat=>{
-        const el = document.createElement('button');
-        el.className = 'tab' + (cat===activeCategory? ' active':'');
-        el.innerText = cat;
-        el.onclick = ()=>{ activeCategory = cat; updateFilter(); }
-        tabsEl.appendChild(el);
-      });
-    }
+                Object.keys(data).forEach(cat => {
+                    html += `<div class="faq-category">${cat}</div>`;
 
-    function renderList(items){
-      faqListEl.innerHTML = '';
-      if(items.length===0){
-        noResultEl.style.display='block';
-        return;
-      }
-      noResultEl.style.display='none';
-      items.forEach(item=>{
-        const d = document.createElement('details');
-        d.className = 'faq';
-        d.innerHTML = `<summary>${escapeHtml(item.q)}</summary><p>${escapeHtml(item.a)}</p>`;
-        faqListEl.appendChild(d);
-      });
-    }
+                    data[cat].forEach(item => {
+                        html += `
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    ${item.question}
+                                    <span class="arrow">▶</span>
+                                </div>
+                                <div class="faq-answer">${item.answer}</div>
+                            </div>
+                        `;
+                    });
+                });
 
-    function updateFilter(){
-      const q = qInput.value.trim().toLowerCase();
-      // 필터 적용: 카테고리 + 검색어
-      let filtered = faqs.filter(f=>{
-        const inCategory = (activeCategory==='전체 프로그램') || (f.category===activeCategory);
-        const matchQ = q==='' || (f.q+" "+f.a+" "+f.category).toLowerCase().includes(q);
-        return inCategory && matchQ;
-      });
-      makeTabs();
-      renderList(filtered);
-    }
+                document.getElementById("faq-container").innerHTML = html;
 
-    function clearSearch(){ qInput.value=''; updateFilter(); qInput.focus(); }
+                const questions = document.querySelectorAll(".faq-question");
+                questions.forEach(q => {
+                    q.addEventListener("click", () => {
+                        const parent = q.parentElement;
+                        const answer = q.nextElementSibling;
 
-    // 간단한 XSS 방지
-    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+                        parent.classList.toggle("open");
+                        answer.style.display = answer.style.display === "block" ? "none" : "block";
+                    });
+                });
+            })
+            .catch(err => {
+                document.getElementById("faq-container").innerHTML =
+                    "FAQ 데이터를 불러올 수 없습니다.";
+                console.error(err);
+            });
+    </script>
 
-    // 초기 렌더
-    makeTabs();
-    updateFilter();
-  </script>
 </body>
 </html>
